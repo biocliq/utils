@@ -8,6 +8,9 @@ public interface MetaDataProvider {
 
 	ResultSet getTables(String schemaPattern, String tableNamePattern)
 			throws SQLException;
+	
+	ResultSet getColumns(String schemaPattern, String tableNamePattern)
+			throws SQLException;
 
 	ResultSet getSchemas() throws SQLException;
 

@@ -25,6 +25,11 @@ public abstract class GenericMetaDataProvider implements MetaDataProvider {
 		String[] types = { "TABLE", "VIEW" };
 		return databaseMetaData.getTables(null, schemaPattern, tableNamePattern, types);
 	}
+	
+	public ResultSet getColumns(String schemaPattern, String tableNamePattern)
+			throws SQLException{
+		return databaseMetaData.getColumns(null,  schemaPattern, tableNamePattern, "%");
+	}
 
 	@Override
 	public ResultSet getSchemas() throws SQLException {
