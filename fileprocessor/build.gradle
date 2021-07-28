@@ -43,4 +43,11 @@ publishing {
             from components.java
         }
     }
+    if (project.hasProperty("localRepo")){
+        repositories {
+            maven {
+                url = uri("${localRepo}")
+            }
+        }
+    }
 }
