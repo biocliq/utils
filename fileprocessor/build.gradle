@@ -6,10 +6,18 @@
  * User Manual available at https://docs.gradle.org/6.1/userguide/java_library_plugin.html
  */
 
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+}
+
+
 plugins {
 	id 'java-library'
-	id 'maven'
+	id 'maven-publish'
 }
+
 
 repositories {
 	mavenLocal()
@@ -25,8 +33,20 @@ if (project.hasProperty('projVersion')) {
 group = 'com.zitlab.util'
 
 dependencies {
-	// https://mvnrepository.com/artifact/org.slf4j/slf4j-api
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+}
 
-	testImplementation 'junit:junit:4.12'
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    if (project.hasProperty("localRepo")){
+        repositories {
+            maven {
+                url = uri("${localRepo}")
+            }
+        }
+    }
 }
