@@ -8,12 +8,11 @@
 
 plugins {
 	id 'java-library'
-	id 'maven'
+	id 'maven-publish'
 }
 
 repositories {
 	mavenLocal()
-	jcenter()
 }
 
 sourceCompatibility = '1.8'
@@ -28,10 +27,21 @@ group = 'com.zitlab.util'
 
 dependencies {
 	
-	compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.0'
-	// https://mvnrepository.com/artifact/org.postgresql/postgresql
-	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
-	
-	
-	testImplementation 'junit:junit:4.12'
 }
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    if (project.hasProperty("localRepo")){
+        repositories {
+            maven {
+                url = uri("${localRepo}")
+            }
+        }
+    }
+}
+
